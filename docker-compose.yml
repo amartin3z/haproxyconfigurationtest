@@ -1,0 +1,26 @@
+volumes:
+    haproxy_logs:
+        name: letsencrypt_logs
+services:
+    haproxy:
+        image: haproxy
+        ports:
+            - "8100:8100"
+            - "1936:1936"
+        volumes:
+            - ./haproxy:/usr/local/etc/haproxy
+    app1:
+        build: ./app/
+        command: python3 -m http.server 8081
+        ports:
+            - "8081:8081"
+    app2:
+        build: ./app/
+        command: python3 -m http.server 8082
+        ports:
+            - "8082:8082"
+    app3:
+        build: ./app/
+        command: python3 -m http.server 8083
+        ports:
+            - "8083:8083"
